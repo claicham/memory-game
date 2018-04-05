@@ -63,7 +63,6 @@ header nav ul {
   grid-template-columns: repeat(4, 1fr);
   width: 100%;
   place-content: center center;
-  /* padding-bottom: 1.5rem; */
 }
 
 /* sections - general */
@@ -124,6 +123,8 @@ ul.tiles {
   position: relative;
   box-shadow: 0 0 1px rgba(0,0,0,.4);
   overflow: hidden;
+
+  perspective: 1000px;
 }
 
 .tiles li::before {
@@ -139,8 +140,12 @@ ul.tiles {
   border: .5rem solid #fff;
 }
 
-.tiles li.matched {
-  background-color: red;
+.tiles li.matched::after {
+  content: '';
+  position: absolute;
+  top: .5rem;
+  left: .5rem;
+  font-size: 2rem;
 }
 
 .tiles li.selected {
@@ -190,54 +195,54 @@ p.results-text {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-android:before {
+.icon-android::before {
   content: "\e900";
   color: #a4c639;
 }
-.icon-angular:before {
+.icon-angular::before {
   content: "\e901";
   color: #dd0031;
 }
-.icon-apple:before {
+.icon-apple::before {
   content: "\e902";
   color: #999;
 }
-.icon-bower:before {
+.icon-bower::before {
   content: "\e903";
   color: #ef5734;
 }
-.icon-css3:before {
+.icon-css3::before {
   content: "\e904";
   color: #1572b6;
 }
-.icon-github:before {
+.icon-github::before {
   content: "\e907";
 }
-.icon-google:before {
+.icon-google::before {
   content: "\e908";
   color: #4285f4;
 }
-.icon-gulp:before {
+.icon-gulp::before {
   content: "\e909";
   color: #da4648;
 }
-.icon-html5:before {
+.icon-html5::before {
   content: "\e90a";
   color: #e34f26;
 }
-.icon-javascript:before {
+.icon-javascript::before {
   content: "\e90b";
   color: #f7df1e;
 }
-.icon-npm:before {
+.icon-npm::before {
   content: "\e90c";
   color: #cb3837;
 }
-.icon-sass:before {
+.icon-sass::before {
   content: "\e90d";
   color: #c69;
 }
-.icon-slack:before {
+.icon-slack::before {
   content: "\e90e";
   color: #56b68b;
 }

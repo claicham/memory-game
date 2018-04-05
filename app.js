@@ -53,19 +53,19 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	}
 
 	function matchTiles() {
-		const tiles = Array.from(document.querySelectorAll('.tile'));
+		const tiles = document.querySelector('.tiles');
 		let matches = [];
-		for (let i = 0; i < tiles.length; i++)
-	  	tiles[i].addEventListener('click', function() {
-	  		if (!this.classList.contains('selected') || (!this.classList.contains('selected') && !this.classList.contains('matched'))) {
-	  			this.classList.add('selected');
-		    	matches.push([tiles[i].dataset.item, tiles[i].dataset.unique]);
 
-		    	if (matches.length === 2) {
-			    	checkMatches(matches);
-			    	matches = [];
-		    	}
-		    }
+  	  tiles.addEventListener('click', function(e) {
+  		if (!e.target.classList.contains('selected') || (!e.target.classList.contains('selected') && !e.target.classList.contains('matched'))) {
+  			e.target.classList.add('selected');
+	    	matches.push([e.target.dataset.item, e.target.dataset.unique]);
+	    	console.log(matches);
+	    	if (matches.length === 2) {
+		    	checkMatches(matches);
+		    	matches = [];
+	    	}
+	    }
 	  });
 
 	  function checkMatches(matches) {
@@ -78,7 +78,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	  		matchedItems += 1;
 
 	  		if (matchedItems === (difficultyAsNum / 2)) {
-	  			completeGame();
+	  			window.setTimeout( function() {
+	  				completeGame();
+	  			}, 1000);
 	  		}
 
 	  	} else {
@@ -129,14 +131,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	}
 
 	function init () {
-		const startButtons = Array.from(document.querySelectorAll('.game-start'));
-		for (let i = 0; i < startButtons.length; i++)
-	  	startButtons[i].addEventListener('click', function() {
-	    	currentDifficulty = startButtons[i].dataset.level;
-	    	difficultyAsNum = currentDifficulty === 'easy' ? 8 : (currentDifficulty === 'medium' ? 12 : 16);
-	    	startGame(startButtons[i].dataset.level);
-	  });
-	}
+		const startButtons = document.querySelector('.game-start');
+		startButtons.addEventListener('click', function(e) {
+			currentDifficulty = e.target.dataset.level;
+			difficultyAsNum = currentDifficulty === 'easy' ? 8 : (currentDifficulty === 'medium' ? 12 : 16);
+			startGame(e.target.dataset.level);
+		  });
+		}
 	init();
 
 	resetGame.addEventListener('click', reset);
