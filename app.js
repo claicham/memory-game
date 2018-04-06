@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
   let timer = 0;
   const timeText = document.querySelector('.time');
   let seconds;
-  
+
   const tilesSource = [
     [1, 'icon-android'],
     [2, 'icon-angular'],
@@ -132,20 +132,18 @@ document.addEventListener('DOMContentLoaded', function () {
     results.classList.remove('hide');
 
     const resultsText = document.querySelector('.results-text');
-
-    const markup =
-      `You completed the game in ${movesTaken} moves with a time of ${timer} seconds!`;
+    const markup = `You completed the game in ${movesTaken} moves with a time of ${timer} seconds!`;
 
     resultsText.innerHTML = markup;
   }
 
   function gameTimer() {
-	  seconds = setInterval(function(){
-                timer++;
-                updateTimerText();
-              }, 1000);
+    seconds = setInterval(function () {
+      timer++;
+      updateTimerText();
+    }, 1000);
   }
-  
+
   function clearTimer() {
     clearInterval(seconds);
     timer = 0;
@@ -175,7 +173,7 @@ document.addEventListener('DOMContentLoaded', function () {
       currentDifficulty = e.target.dataset.level;
       difficultyAsNum = currentDifficulty === 'easy' ? 8 : (currentDifficulty === 'medium' ? 12 : 16);
       startGame(e.target.dataset.level);
-	});
+    });
   }
   init();
 
