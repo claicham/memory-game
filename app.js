@@ -6,6 +6,9 @@ document.addEventListener('DOMContentLoaded', function () {
   const restartGame = document.querySelector('.restart');
   let currentDifficulty = '';
   let difficultyAsNum = 0;
+  let timer = 0;
+  const timeText = document.querySelector('.time');
+  let seconds;
   
   const tilesSource = [
     [1, 'icon-android'],
@@ -66,6 +69,8 @@ document.addEventListener('DOMContentLoaded', function () {
     createTiles(difficultyAsNum);
 
     matchTiles();
+    clearTimer();
+    gameTimer();
   }
 
   function matchTiles() {
@@ -76,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (!e.target.classList.contains('selected') || (!e.target.classList.contains('selected') && !e.target.classList.contains('matched'))) {
         e.target.classList.add('selected');
         matches.push([e.target.dataset.item, e.target.dataset.unique]);
-        console.log(matches);
+
         if (matches.length === 2) {
           checkMatches(matches);
           matches = [];
@@ -96,6 +101,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (matchedItems === (difficultyAsNum / 2)) {
           window.setTimeout(function () {
             completeGame();
+            clearTimer();
           }, 1000);
         }
 
@@ -128,10 +134,25 @@ document.addEventListener('DOMContentLoaded', function () {
     const resultsText = document.querySelector('.results-text');
 
     const markup =
-      `You completed the game in ${movesTaken} moves with a time of xx:xx!
-			`;
+      `You completed the game in ${movesTaken} moves with a time of ${timer} seconds!`;
 
     resultsText.innerHTML = markup;
+  }
+
+  function gameTimer() {
+	  seconds = setInterval(function(){
+                timer++;
+                updateTimerText();
+              }, 1000);
+  }
+  
+  function clearTimer() {
+    clearInterval(seconds);
+    timer = 0;
+  }
+
+  function updateTimerText() {
+    timeText.innerHTML = `Time: ${timer}s`;
   }
 
   function reset() {
@@ -142,6 +163,8 @@ document.addEventListener('DOMContentLoaded', function () {
     movesTaken = 0;
     matchedItems = 0;
     currentDifficulty = '';
+    timer = 0;
+    updateTimerText();
     updateStats();
     init();
   }
@@ -152,7 +175,7 @@ document.addEventListener('DOMContentLoaded', function () {
       currentDifficulty = e.target.dataset.level;
       difficultyAsNum = currentDifficulty === 'easy' ? 8 : (currentDifficulty === 'medium' ? 12 : 16);
       startGame(e.target.dataset.level);
-    });
+	});
   }
   init();
 
