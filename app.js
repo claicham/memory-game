@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (!e.target.classList.contains('selected') || (!e.target.classList.contains('selected') && !e.target.classList.contains('matched'))) {
         e.target.classList.add('selected');
         matches.push([e.target.dataset.item, e.target.dataset.unique]);
-        console.log(matches);
+
         if (matches.length === 2) {
           checkMatches(matches);
           matches = [];
