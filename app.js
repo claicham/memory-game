@@ -65,11 +65,12 @@ document.addEventListener('DOMContentLoaded', function () {
     setup.classList.add('hide');
     gameArea.classList.remove('hide');
     gameArea.classList.add(`level-${currentDifficulty}`);
+    gameArea.style.height = `${window.innerHeight - 104}px`;
 
     createTiles(difficultyAsNum);
 
     matchTiles();
-    clearTimer();
+    clearTimer(true);
     gameTimer();
   }
 
@@ -99,9 +100,10 @@ document.addEventListener('DOMContentLoaded', function () {
         matchedItems += 1;
 
         if (matchedItems === (difficultyAsNum / 2)) {
+          clearTimer(false);
+          console.log(timer);
           window.setTimeout(function () {
             completeGame();
-            clearTimer();
           }, 1000);
         }
 
@@ -144,13 +146,15 @@ document.addEventListener('DOMContentLoaded', function () {
     }, 1000);
   }
 
-  function clearTimer() {
+  function clearTimer(clearCurrentTime) {
     clearInterval(seconds);
-    timer = 0;
+    if (clearCurrentTime) {
+      timer = 0;
+    }
   }
 
   function updateTimerText() {
-    timeText.innerHTML = `Time: ${timer}s`;
+    timeText.innerHTML = `Timer: ${timer}s`;
   }
 
   function reset() {
