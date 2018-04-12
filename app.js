@@ -6,7 +6,10 @@ document.addEventListener('DOMContentLoaded', function () {
   const restartGame = document.querySelector('.restart');
   let currentDifficulty = '';
   let difficultyAsNum = 0;
-  
+  let timer = 0;
+  const timeText = document.querySelector('.time');
+  let seconds;
+
   const tilesSource = [
     [1, 'icon-android'],
     [2, 'icon-angular'],
@@ -62,10 +65,13 @@ document.addEventListener('DOMContentLoaded', function () {
     setup.classList.add('hide');
     gameArea.classList.remove('hide');
     gameArea.classList.add(`level-${currentDifficulty}`);
+    gameArea.style.height = `${window.innerHeight - 104}px`;
 
     createTiles(difficultyAsNum);
 
     matchTiles();
+    clearTimer(true);
+    gameTimer();
   }
 
   function matchTiles() {
@@ -94,6 +100,8 @@ document.addEventListener('DOMContentLoaded', function () {
         matchedItems += 1;
 
         if (matchedItems === (difficultyAsNum / 2)) {
+          clearTimer(false);
+          console.log(timer);
           window.setTimeout(function () {
             completeGame();
           }, 1000);
@@ -126,12 +134,27 @@ document.addEventListener('DOMContentLoaded', function () {
     results.classList.remove('hide');
 
     const resultsText = document.querySelector('.results-text');
-
-    const markup =
-      `You completed the game in ${movesTaken} moves with a time of xx:xx!
-			`;
+    const markup = `You completed the game in ${movesTaken} moves with a time of ${timer} seconds!`;
 
     resultsText.innerHTML = markup;
+  }
+
+  function gameTimer() {
+    seconds = setInterval(function () {
+      timer++;
+      updateTimerText();
+    }, 1000);
+  }
+
+  function clearTimer(clearCurrentTime) {
+    clearInterval(seconds);
+    if (clearCurrentTime) {
+      timer = 0;
+    }
+  }
+
+  function updateTimerText() {
+    timeText.innerHTML = `Timer: ${timer}s`;
   }
 
   function reset() {
@@ -142,6 +165,8 @@ document.addEventListener('DOMContentLoaded', function () {
     movesTaken = 0;
     matchedItems = 0;
     currentDifficulty = '';
+    timer = 0;
+    updateTimerText();
     updateStats();
     init();
   }

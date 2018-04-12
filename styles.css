@@ -1,3 +1,6 @@
+html, body {
+}
+
 body {
   line-height: 1.4;
   font-family: 'Open sans', 'helvetica', arial, sans-serif;
@@ -15,6 +18,8 @@ h1 {
 
 * {
   box-sizing: border-box;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .hide {
@@ -25,32 +30,43 @@ h1 {
 
 button {
   margin: 0;
-  padding: .25rem 1rem;
+  padding: .25rem .5rem;
   background: deeppink;
   color: #fff;
   font-size: 1rem;
   border: 0;
   cursor: pointer;
+  border-radius: 4px;
+  font-size: .8rem;
+}
+
+button:hover {
+  background-color: hotpink;
 }
 
 /* layout */
 
 article {
-  padding: 1.5rem;
-  display: grid;
-  justify-content: stretch;
-  grid-template-rows: 5.5rem 1fr;
-  height: 100vh;
-  max-width: 50rem;
-  margin: 0 auto;
+  display: flex;
+  min-width: 320px;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
 }
 
 /* header */
 
 header {
+  height: 6.5rem;
   display: grid;
   grid-template-columns: 1fr;
   place-content: start;
+  background-color: rgba(0,0,0,.1);
+  padding: 1rem;
+  border-bottom: 1px solid #b6b6b6;
 }
 
 header nav {
@@ -60,9 +76,12 @@ header nav {
 
 header nav ul {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, auto);
   width: 100%;
-  place-content: center center;
+  place-content: center flex-start;
+  grid-gap: 1rem;
+  line-height: 2rem;
+  font-size: .8rem;
 }
 
 /* sections - general */
@@ -70,6 +89,13 @@ header nav ul {
 section {
   display: grid;
   text-align: center;
+  /* max-width: 50rem; */
+  margin: 0 auto;
+  min-height: calc(100% - 6.5rem);
+  align-self: stretch;
+  flex-grow: 1;
+  width: 100%;
+  /* overflow: hidden; */
 }
 
 .setup,
@@ -85,7 +111,8 @@ section {
   grid-template-columns: repeat(3, 1fr);
   width: 100%;
   place-content: center center;
-  grid-gap: .5rem;
+  grid-gap: 1rem;
+  margin-top: 1rem;
 }
 
 .setup ul li {
@@ -93,17 +120,23 @@ section {
   padding: .25rem 1rem;
   background-color: deeppink;
   color: #fff;
+  border-radius: 4px;
+}
+
+.setup ul li:hover {
+  background-color: hotpink;
 }
 
 /* section - tiles */
 
 ul.tiles {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(50px, calc(33%)));
+  grid-template-columns: repeat(auto-fit, minmax(50px, calc(33.3333% - 1px)));
+  grid-auto-rows: auto;
   grid-gap: 1px;
   width: 100%;
-  height: 100%;
-  user-select: none;
+  margin: 0 auto;
+  place-content: stretch;
 }
 
 .level-easy ul.tiles {
@@ -111,7 +144,7 @@ ul.tiles {
 }
 
 .level-hard ul.tiles {
-  grid-template-columns: repeat(4, minmax(50px, calc(25% - .25rem)));
+  grid-template-columns: repeat(4, minmax(50px, 25%));
 }
 
 .tiles li {
@@ -245,4 +278,7 @@ p.results-text {
 .icon-slack::before {
   content: "\e90e";
   color: #56b68b;
+}
+
+.setup {
 }
