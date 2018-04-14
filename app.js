@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     tiles.addEventListener('click', function (e) {
       if (!e.target.classList.contains('selected') || (!e.target.classList.contains('selected') && !e.target.classList.contains('matched'))) {
-        e.target.classList.add('selected');
+        e.target.classList.add('selected', 'flip');
         matches.push([e.target.dataset.item, e.target.dataset.unique]);
 
         if (matches.length === 2) {
@@ -95,7 +95,9 @@ document.addEventListener('DOMContentLoaded', function () {
       if (matches[0][0] === matches[1][0]) {
         const matched = document.querySelectorAll(`[data-item='${matches[0][0]}']`);
         for (let i = 0; i < matched.length; i++) {
-          matched[i].classList.add('matched');
+          window.setTimeout(function () {
+            matched[i].classList.add('matched');
+          }, 400);
         }
         matchedItems += 1;
 
@@ -104,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function () {
           console.log(timer);
           window.setTimeout(function () {
             completeGame();
-          }, 1000);
+          }, 1400);
         }
 
       } else {
@@ -112,8 +114,8 @@ document.addEventListener('DOMContentLoaded', function () {
         const item2 = document.querySelector(`[data-unique='${matches[1][1]}']`);
 
         window.setTimeout(function () {
-          item1.classList.remove('selected');
-          item2.classList.remove('selected');
+          item1.classList.remove('selected', 'flip');
+          item2.classList.remove('selected', 'flip');
         }, 500);
       }
 
