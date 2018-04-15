@@ -66,6 +66,8 @@ document.addEventListener('DOMContentLoaded', function () {
     gameArea.classList.remove('hide');
     gameArea.classList.add(`level-${currentDifficulty}`);
     gameArea.style.height = `${window.innerHeight - 104}px`;
+    setup.style.height = `${window.innerHeight - 104}px`;
+    results.style.height = `${window.innerHeight - 104}px`;
 
     createTiles(difficultyAsNum);
 
@@ -137,8 +139,22 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const resultsText = document.querySelector('.results-text');
     const markup = `You completed the game in ${movesTaken} moves with a time of ${timer} seconds!`;
-
+    rateUser();
     resultsText.innerHTML = markup;
+  }
+
+  function rateUser() {
+    const stars = document.querySelector('.stars');
+    let multiplier = difficultyAsNum / 4;
+    if (movesTaken <= (difficultyAsNum / 2) + multiplier) {
+      stars.innerHTML = '<span class="three"></span>';
+    } else if (movesTaken <= (difficultyAsNum / 2) + (multiplier * 2)) {
+      stars.innerHTML = '<span class="two"></span>';
+    } else if (movesTaken <= (difficultyAsNum / 2) + (multiplier * 3)) {
+      stars.innerHTML = '<span class="one"></span>';
+    } else {
+      stars.innerHTML = '';
+    }
   }
 
   function gameTimer() {

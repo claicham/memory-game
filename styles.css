@@ -62,9 +62,9 @@ header {
   display: grid;
   grid-template-columns: 1fr;
   place-content: start;
-  background-color: #e5e5e5;
+  background-color: white;
   padding: 1rem;
-  border-bottom: 1px solid #b6b6b6;
+  /* border-bottom: 1px solid #b6b6b6; */
   position: absolute;
   z-index: 4;
   width: 100%;
@@ -107,6 +107,7 @@ section {
   z-index: 2;
   transition: top .3s ease-in-out;
   background: white;
+  animation-fill-mode: forwards;
 }
 
 .setup,
@@ -115,18 +116,8 @@ section {
   align-content: center;
 }
 
-.setup.hide {
-  top: -200%;
-  z-index: 1;
-}
-
-.game.hide {
-  top: -40%;
-  z-index: 1;
-}
-
-.result.hide {
-  top: 200%;
+section.hide {
+  top: -100%;
   z-index: 1;
 }
 
@@ -302,6 +293,24 @@ p.results-text {
     -webkit-transform: scale3d(1, 1, 1);
     transform: scale3d(1, 1, 1);
   }
+}
+
+/* stars */
+
+.stars span {
+  font-size: 2rem;
+}
+
+.stars .three::before {
+  content: '\01F354 \01F354 \01F354'
+}
+
+.stars .two::before {
+  content: '\01F354 \01F354'
+}
+
+.stars .one::before {
+  content: '\01F354'
 }
 
 /* icons */
