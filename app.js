@@ -105,7 +105,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (matchedItems === (difficultyAsNum / 2)) {
           clearTimer(false);
-          console.log(timer);
           window.setTimeout(function () {
             completeGame();
           }, 1400);
